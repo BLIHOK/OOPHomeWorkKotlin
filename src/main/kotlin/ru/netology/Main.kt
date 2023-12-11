@@ -43,12 +43,7 @@ object WallService {
         posts.add(postCopy)
         return postCopy
     }
-//fun add(post: Post): Post { // Add a new post to the list and return a copy with a new ID
-//    val postCopy = post.copy(id = nextId) // Copy the original post and set its ID to the next available ID
-//    nextId++ // Increment the next available ID for the next post
-//    posts.add(postCopy) // Add the new post to the list of all posts
-//    return postCopy // Return the new post with its updated ID
-//}/////////////////
+
     fun update(post: Post): Boolean {
         val existingPostIndex = posts.indexOfFirst { it.id == post.id }
         if (existingPostIndex != -1) {

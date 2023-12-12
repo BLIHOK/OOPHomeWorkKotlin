@@ -1,8 +1,10 @@
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import ru.netology.Documents
 import ru.netology.Post
 import ru.netology.WallService
+import ru.netology.docAttachment
 
 class WallServiceTest {
 
@@ -25,7 +27,8 @@ class WallServiceTest {
             canEdit = true,
             markedAsAds = false,
             isFavorite = false,
-            likes = Post.Likes()
+            likes = Post.Likes(),
+            attachment = docAttachment(Documents())
         )
         val returnedPost = WallService.add(post)
         assertEquals(1, returnedPost.id)
@@ -48,7 +51,8 @@ class WallServiceTest {
             canEdit = true,
             markedAsAds = false,
             isFavorite = false,
-            likes = Post.Likes()
+            likes = Post.Likes(),
+            attachment = docAttachment(Documents())
         )
 
         WallService.add(post)
@@ -65,12 +69,14 @@ class WallServiceTest {
             canEdit = true,
             markedAsAds = false,
             isFavorite = false,
-            likes = Post.Likes()
+            likes = Post.Likes(),
+            attachment = docAttachment(Documents())
         )
 
         val isUpdated = WallService.update(updatedPost)
         assertEquals(true, isUpdated)
     }
+
     @Test
     fun updateIsNotExisting() {
         val updatedPost = Post(
@@ -85,7 +91,8 @@ class WallServiceTest {
             canEdit = true,
             markedAsAds = false,
             isFavorite = false,
-            likes = Post.Likes()
+            likes = Post.Likes(),
+            attachment = docAttachment(Documents())
         )
 
         val isUpdated = WallService.update(updatedPost)

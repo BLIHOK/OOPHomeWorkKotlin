@@ -13,7 +13,8 @@ data class Post(
     val markedAsAds: Boolean = false,
     val isFavorite: Boolean = false,
     val likes: Likes,
-    val attachment: MutableList<Attachment> = mutableListOf()
+    val attachment: Attachment
+
 
 ) {
 
@@ -79,7 +80,13 @@ object WallService {
     }
 
 }
-
+fun isClass(attachment: Attachment) = when (attachment) {
+    is docAttachment -> println(attachment.documents)
+    is videoAttachment -> println(attachment.video)
+    is audioAttachment -> println(attachment.audio)
+    is linkAttachment -> println(attachment.link)
+    is photoAttachment -> println(attachment.photo)
+}
 fun main(args: Array<String>) {
     val likes = Post.Likes(quantity = 0, users = mutableListOf())
 //    val post = Post(
@@ -87,7 +94,7 @@ fun main(args: Array<String>) {
 //        reposts = 0, views = 0,
 //        postType = "Простой", canDelete = true,
 //        canEdit = true, markedAsAds = false,
-//        isFavorite = false, likes = likes,
+//        isFavorite = false, likes = likes
 //    )
 //    val userId = "Юзер1"
 
@@ -103,7 +110,7 @@ fun main(args: Array<String>) {
 //    val post4 = Post(date = null, text = null, canDelete = null, likes = likes)
 //    val userId4 = "Юзер4"
 //
-    val post5 = Post(likes = likes, attachment = mutableListOf(docAttachment(documents = Documents())))
+    val post5 = Post(likes = likes, attachment = videoAttachment(Video()))
     val userId5 = "Юзер5"
 //
 //    WallService.add(post)
@@ -131,6 +138,7 @@ fun main(args: Array<String>) {
 //    println(post4.likes)
     println(post5)
     println(post5.likes)
+    isClass(videoAttachment(Video()))
 
 //    val updatedPost = Post(
 //        id = 1,

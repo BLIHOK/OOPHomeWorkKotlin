@@ -1,13 +1,8 @@
 package ru.netology
 
-interface Attachment {
-    val type: String
-}
+sealed class Attachment(val type: String)
 
-data class docAttachment(
-    override val type: String = "documents",
-    val documents: Documents
-) : Attachment
+data class docAttachment(val documents: Documents) : Attachment ("documents")
 
 
 data class Documents(
@@ -17,10 +12,7 @@ data class Documents(
     val ext: String = "pdf"
 )
 
-data class videoAttachment(
-    override val type: String = "video",
-    val video: Video
-) : Attachment
+data class videoAttachment(val video: Video) : Attachment ("video")
 
 data class Video(
     val id: Int = 2,
@@ -29,10 +21,7 @@ data class Video(
     val views: Int = 1
 )
 
-data class audioAttachment(
-    override val type: String = "audio",
-    val audio: Audio
-) : Attachment
+data class audioAttachment(val audio: Audio) : Attachment ("audio")
 
 data class Audio(
     val id: Int = 3,
@@ -41,10 +30,7 @@ data class Audio(
     val date: Int = 2000
 )
 
-data class linkAttachment(
-    override val type: String = "link",
-    val link: Link
-) : Attachment
+data class linkAttachment(val link: Link) : Attachment ("link")
 
 data class Link(
     val url: String = "www.LifeAfterAndroid.com",
@@ -53,10 +39,7 @@ data class Link(
     val caption: String = "Вася"
 )
 
-data class photoAttachment(
-    override val type: String = "photo",
-    val photo: Photo
-) : Attachment
+data class photoAttachment(val photo: Photo) : Attachment ("photo")
 
 data class Photo(
     val id: Int = 5,

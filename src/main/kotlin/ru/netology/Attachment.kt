@@ -1,78 +1,68 @@
 package ru.netology
 
 interface Attachment {
-    val type: Any
+    val type: String
 }
 
-class doc(override val type: Any = "documents") : Attachment
-class docAttachment() : Attachment {
-    override val type = emptyArray<Attachment>()
-    fun add (id: Int){
+data class docAttachment(
+    override val type: String = "documents",
+    val documents: Documents
+) : Attachment
 
-    }
-//    val id: Int
-//        get() = TODO()
-    val title: String
-        get() = TODO()
-    val size: Int
-        get() = TODO()
+
+data class Documents(
+    val id: Int,
+    val title: String,
+    val size: Int,
     val ext: String
-        get() = TODO()
-}
+)
 
-class video(override val type: Any = "video") : Attachment
-class videoAttachment() : Attachment {
-    override val type = emptyArray<Attachment>()
-    val id: Int
-        get() = TODO()
-    val title: String
-        get() = TODO()
-    val duration: Int
-        get() = TODO()
-    val views: String
-        get() = TODO()
-}
+data class videoAttachment(
+    override val type: String = "video",
+    val video: Video
+) : Attachment
 
-class audio(override val type: Any = "audio") : Attachment
-class audioAttachment() : Attachment {
-    override val type = emptyArray<Attachment>()
-    val id: Int
-        get() = TODO()
-    val artist: String
-        get() = TODO()
-    val title: String
-        get() = TODO()
+data class Video(
+    val id: Int,
+    val title: String,
+    val duration: Int,
+    val views: Int
+
+)
+
+data class audioAttachment(
+    override val type: String = "audio",
+    val audio: Audio
+) : Attachment
+
+data class Audio(
+    val id: Int,
+    val artist: String,
+    val title: String,
     val date: Int
-        get() = TODO()
-}
+)
 
-class link(override val type: Any = "link") : Attachment
-class linkAttachment() : Attachment {
-    override val type = emptyArray<Attachment>()
-    val url: String
-        get() = TODO()
-    val title: String
-        get() = TODO()
-    val description: String
-        get() = TODO()
+data class linkAttachment(
+    override val type: String = "link",
+    val link: Link
+) : Attachment
+
+data class Link(
+    val url: String,
+    val title: String,
+    val description: String,
     val caption: String
-        get() = TODO()
-}
+)
 
-class photo(override val type: Any = "photo") : Attachment
-class photoAttachment() : Attachment {
-    override val type = emptyArray<Attachment>()
-    val id: Int
-        get() = TODO()
-    val album_id: Int
-        get() = TODO()
-    val text: String
-        get() = TODO()
+data class photoAttachment(
+    override val type: String = "photo",
+    val photo: Photo
+) : Attachment
+
+data class Photo(
+    val id: Int,
+    val album_id: Int,
+    val text: String,
     val date: Int
-        get() = TODO()
-
-}
-
-
-
+)
 

@@ -12,7 +12,14 @@ data class Post(
     val canEdit: Boolean = false,
     val markedAsAds: Boolean = false,
     val isFavorite: Boolean = false,
-    val likes: Likes
+    val likes: Likes,
+    val attach: MutableList<Attachment> = mutableListOf(
+        docAttachment(documents = Documents(1, "Жизнь Гекельбери Фина", 192, "pdf")),
+        videoAttachment(video = Video(2, "Чужой", 117, 1)),
+        audioAttachment(audio = Audio(3, "Стинг", "Desert Rose", 2000)),
+        linkAttachment(link = Link("www.LifeAfterAndroid.com", "VeryGood", "Some Descritpion", "Вася")),
+        photoAttachment(photo = Photo(5, 10, "Какой-то текс", 1996))
+    )
 ) {
 
     data class Likes(
@@ -90,65 +97,72 @@ fun main(args: Array<String>) {
     val userId = "Юзер1"
 
 
-    val post2 = Post(ownerId = 2, date = 2010, text = "Добрый день", likes = likes)
-    val userId2 = "Юзер2"
+//    val post2 = Post(ownerId = 2, date = 2010, text = "Добрый день", likes = likes)
+//    val userId2 = "Юзер2"
+//
+//
+//    val post3 = Post(ownerId = 3, date = 2012, text = "Добрый вечер", likes = likes)
+//    val userId3 = "Юзер3"
+//
+//
+//    val post4 = Post(date = null, text = null, canDelete = null, likes = likes)
+//    val userId4 = "Юзер4"
+//
+    val post5 = Post(likes = likes, attach = mutableListOf())
+    val userId5 = "Юзер5"
+//
+//    WallService.add(post)
+//    WallService.likeById(post.id, userId)
+//
+//    WallService.add(post2)
+//    WallService.likeById(post2.id, userId2)
+//
+//    WallService.add(post3)
+//    WallService.likeById(post3.id, userId3)
+//
+//    WallService.add(post4)
+//    WallService.likeById(post4.id, userId4)
 
-
-    val post3 = Post(ownerId = 3, date = 2012, text = "Добрый вечер", likes = likes)
-    val userId3 = "Юзер3"
-
-
-    val post4 = Post(date = null, text = null, canDelete = null, likes = likes)
-    val userId4 = "Юзер4"
-
-
-    WallService.add(post)
-    WallService.likeById(post.id, userId)
-
-    WallService.add(post2)
-    WallService.likeById(post2.id, userId2)
-
-    WallService.add(post3)
-    WallService.likeById(post3.id, userId3)
-
-    WallService.add(post4)
-    WallService.likeById(post4.id, userId4)
+    WallService.add(post5)
+    WallService.likeById(post5.id, userId5)
 
     println(post)
     println(post.likes)
-    println(post2)
-    println(post2.likes)
-    println(post3)
-    println(post3.likes)
-    println(post4)
-    println(post4.likes)
+//    println(post2)
+//    println(post2.likes)
+//    println(post3)
+//    println(post3.likes)
+//    println(post4)
+//    println(post4.likes)
+//    println(post5)
+    println(post5.likes)
 
-    val updatedPost = Post(
-        id = 1,
-        ownerId = 1,
-        date = 0,
-        text = "Новый привет",
-        reposts = 0,
-        views = 0,
-        postType = "Обновленный",
-        canDelete = true,
-        canEdit = true,
-        markedAsAds = false,
-        isFavorite = false,
-        likes = likes
-    )
-
-    val isUpdated = WallService.update(updatedPost)
-    if (isUpdated) {
-        println(true)
-    } else {
-        println(false)
-    }
-
-    val retrievedPost = WallService.getById(1)
-    println(retrievedPost)
-
-    WallService.unlikeById(post.id, userId)
-
-    println(post.likes)
+//    val updatedPost = Post(
+//        id = 1,
+//        ownerId = 1,
+//        date = 0,
+//        text = "Новый привет",
+//        reposts = 0,
+//        views = 0,
+//        postType = "Обновленный",
+//        canDelete = true,
+//        canEdit = true,
+//        markedAsAds = false,
+//        isFavorite = false,
+//        likes = likes
+//    )
+//
+//    val isUpdated = WallService.update(updatedPost)
+//    if (isUpdated) {
+//        println(true)
+//    } else {
+//        println(false)
+//    }
+//
+//    val retrievedPost = WallService.getById(1)
+//    println(retrievedPost)
+//
+//    WallService.unlikeById(post.id, userId)
+//
+//    println(post.likes)
 }

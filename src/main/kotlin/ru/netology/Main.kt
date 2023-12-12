@@ -13,13 +13,7 @@ data class Post(
     val markedAsAds: Boolean = false,
     val isFavorite: Boolean = false,
     val likes: Likes,
-    val attach: MutableList<Attachment> = mutableListOf(
-        docAttachment(documents = Documents(1, "Жизнь Гекельбери Фина", 192, "pdf")),
-        videoAttachment(video = Video(2, "Чужой", 117, 1)),
-        audioAttachment(audio = Audio(3, "Стинг", "Desert Rose", 2000)),
-        linkAttachment(link = Link("www.LifeAfterAndroid.com", "VeryGood", "Some Descritpion", "Вася")),
-        photoAttachment(photo = Photo(5, 10, "Какой-то текс", 1996))
-    )
+    val attachment: MutableList<Attachment> = mutableListOf()
 ) {
 
     data class Likes(
@@ -87,14 +81,14 @@ object WallService {
 
 fun main(args: Array<String>) {
     val likes = Post.Likes(quantity = 0, users = mutableListOf())
-    val post = Post(
-        1, 1, 2000, "Привет",
-        reposts = 0, views = 0,
-        postType = "Простой", canDelete = true,
-        canEdit = true, markedAsAds = false,
-        isFavorite = false, likes = likes
-    )
-    val userId = "Юзер1"
+//    val post = Post(
+//        1, 1, 2000, "Привет",
+//        reposts = 0, views = 0,
+//        postType = "Простой", canDelete = true,
+//        canEdit = true, markedAsAds = false,
+//        isFavorite = false, likes = likes
+//    )
+//    val userId = "Юзер1"
 
 
 //    val post2 = Post(ownerId = 2, date = 2010, text = "Добрый день", likes = likes)
@@ -108,7 +102,7 @@ fun main(args: Array<String>) {
 //    val post4 = Post(date = null, text = null, canDelete = null, likes = likes)
 //    val userId4 = "Юзер4"
 //
-    val post5 = Post(likes = likes, attach = mutableListOf())
+    val post5 = Post(likes = likes, attachment = mutableListOf(docAttachment(documents = Documents())) )
     val userId5 = "Юзер5"
 //
 //    WallService.add(post)
@@ -126,15 +120,15 @@ fun main(args: Array<String>) {
     WallService.add(post5)
     WallService.likeById(post5.id, userId5)
 
-    println(post)
-    println(post.likes)
+//    println(post)
+//    println(post.likes)
 //    println(post2)
 //    println(post2.likes)
 //    println(post3)
 //    println(post3.likes)
 //    println(post4)
 //    println(post4.likes)
-//    println(post5)
+    println(post5)
     println(post5.likes)
 
 //    val updatedPost = Post(

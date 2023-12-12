@@ -14,6 +14,8 @@ data class Post(
     val isFavorite: Boolean = false,
     val likes: Likes,
     val attachment: Attachment
+
+
 ) {
 
     data class Likes(
@@ -108,7 +110,6 @@ fun main(args: Array<String>) {
 //    val post4 = Post(date = null, text = null, canDelete = null, likes = likes)
 //    val userId4 = "Юзер4"
 //
-
     val post5 = Post(likes = likes, attachment = videoAttachment(Video()))
     val userId5 = "Юзер5"
 //

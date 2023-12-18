@@ -2,7 +2,9 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import ru.netology.PostNotFoundException
+import ru.netology.ReportException
 import ru.netology.data.*
+import ru.netology.reports.Report
 import ru.netology.service.WallService
 
 class WallServiceTest {
@@ -128,5 +130,42 @@ class WallServiceTest {
 
         val comment = Comment(fromId = userId, text = "Иван Федорович Рубентшейн")
         WallService.createComment(1, comment)
+    }
+
+    @Test(expected = ReportException::class)
+    fun shouldThrowReport() {
+        val post = Post(
+            1, 1, 2000, "Привет",
+            reposts = 0, views = 0,
+            postType = "Простой", canDelete = true,
+            canEdit = true, markedAsAds = false,
+            isFavorite = false, likes = Post.Likes(), attachment = docAttachment(Documents())
+        )
+        val userId = "Юзер1"
+        WallService.add(post)
+
+        val comment = Comment(commentId = 1, fromId = userId, fromPostId = 1, date = 2023, text = "Иван Федорович Рубентшейн")
+        WallService.createComment(1, comment)
+
+        val report1 = Report(userId = userId, commentId = comment.commentId, reason = Report.Reason(10))
+        WallService.makeReport(userId, post.id, report1.reason.type)
+    }
+    @Test
+    fun shouldNotThrowReport() {
+        val post = Post(
+            1, 1, 2000, "Привет",
+            reposts = 0, views = 0,
+            postType = "Простой", canDelete = true,
+            canEdit = true, markedAsAds = false,
+            isFavorite = false, likes = Post.Likes(), attachment = docAttachment(Documents())
+        )
+        val userId = "Юзер1"
+        WallService.add(post)
+
+        val comment = Comment(commentId = 1, fromId = userId, fromPostId = 1, date = 2023, text = "Иван Федорович Рубентшейн")
+        WallService.createComment(1, comment)
+
+        val report1 = Report(userId = userId, commentId = comment.commentId, reason = Report.Reason(1))
+        WallService.makeReport(userId, post.id, report1.reason.type)
     }
 }

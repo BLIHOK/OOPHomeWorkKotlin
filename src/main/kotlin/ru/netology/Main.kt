@@ -1,6 +1,7 @@
 package ru.netology
 
 import ru.netology.data.*
+import ru.netology.reports.Report
 import ru.netology.service.WallService
 
 
@@ -95,9 +96,14 @@ fun main(args: Array<String>) {
 //    val comment1 = Comment(fromId = userId, text = "My first comment")
 //    WallService.createComment(2, comment1)
 //    println(comment1)
+
     val comment2 = Comment(fromId = userId, text = "Иван Федорович Рубентшейн")
-    WallService.createComment(5, comment2)
+    WallService.createComment(2, comment2)
     println(post2)
     println(comment2)
+
+    val report1 = Report(userId = userId, commentId = comment2.commentId, reason = Report.Reason(1))
+    WallService.makeReport(userId, comment2.commentId, report1.reason.type)
+    println(report1)
 
 }

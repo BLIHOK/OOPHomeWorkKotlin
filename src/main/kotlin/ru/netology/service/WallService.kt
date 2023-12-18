@@ -1,9 +1,9 @@
 package ru.netology.service
 
 import ru.netology.PostNotFoundException
+import ru.netology.ReportException
 import ru.netology.data.Comment
 import ru.netology.data.Post
-import ru.netology.isPostExist
 import ru.netology.reports.Report
 
 object WallService {
@@ -13,48 +13,32 @@ object WallService {
     private var commentCount = 1
     private var report = mutableListOf<Report>()
 
-//    fun makeReport(ownerId: String, commentsId: Int, reason: Report.Reason) {
-//        val ownerError = comments.find { it.fromId == ownerId }
-//        val commentError = ownerError
-//        if (ownerError == null) {
-//            if (ownerError)
-//        }
-//        throw Error("Не удалось отправить репорт. Не указан или неверно указан: ownerId")
-//    }if (commentError == null)
-//    {
-//        println("Репорт отправлен")
-//
-//        println("Не удалось отправить репорт. Не указан или неверно указан:  commentId")
-//        println("Не удалось отправить репорт. Не указан или неверно указан: reason")
-//    }
+    fun makeReport(userId: String, commentsId: Int, reason: Int): Report {
+        val userIdError = comments.find { it.fromId == userId }
+        val commentIdError = comments.find { it.commentId == commentsId }
+        val reasonError = Report.Reason(reason).reasonReport
+        when {
+            userIdError == null -> throw ReportException("Wrong user Id")
+            commentIdError == null -> throw ReportException("Wrong comment ID")
+            reasonError == null -> throw ReportException("Wrong reason")
+            else -> {
+                report.add(Report(userId, commentsId, Report.Reason(reason)))
+            }
+        }
+        return report.last()
+    }
 
-    //    fun createComment(postId: Int, comment: Comment): Comment {
-//        val exist = posts.find { it.id == postId }
-//        if (exist == null) {
-//            throw PostNotFoundException("Post not exist")
-//        } else {
-//            comments.add(comment)
-//            comment.commentId = commentCount++
-//            comment.fromPostId = postId
-//        }
-//        return comments.last()
-//    }
     fun createComment(postId: Int, comment: Comment): Comment {
         val exist = posts.find { it.id == postId }
-        try {
-            isPostExist(exist)
+        if (exist == null) {
+            throw PostNotFoundException("Post not exist")
+        } else {
             comments.add(comment)
             comment.commentId = commentCount++
             comment.fromPostId = postId
-        } catch (e: PostNotFoundException) {
-            e.printStackTrace()
-//            throw PostNotFoundException("Post not exist, check Post Id")
-//            println(e)
-//            System.exit(1)
         }
         return comments.last()
     }
-
 
     fun add(post: Post): Post {
         post.id = nextId++
@@ -92,6 +76,9 @@ object WallService {
     fun clear() {
         posts.clear()
         nextId = 1
+        comments.clear()
+        commentCount = 1
+        report.clear()
     }
 
 }

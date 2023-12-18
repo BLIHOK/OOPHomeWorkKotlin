@@ -1,18 +1,18 @@
 package ru.netology.reports
 
-import ru.netology.service.WallService
-
 data class Report(
-    val ownerId: String,
+    val userId: String,
     val commentId: Int,
     val reason: Reason
 ) {
     data class Reason(
-        val map: Map<Int, String> = mapOf(
-            (0 to "спам"),
-            (1 to "экстремизм;"),
-            (3 to "материал для взрослых;"),
-            (4 to "оскорбление")
-        ),
+        var type: Int = 0,
+        var reasonReport:String? = when (type) {
+            1 -> "спам"
+            2 -> "экстремизм"
+            3 -> "материал для взрослых"
+            4 -> "оскорбление"
+            else -> null
+        }
     )
 }

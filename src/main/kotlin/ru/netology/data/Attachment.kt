@@ -1,8 +1,8 @@
-package ru.netology
+package ru.netology.data
 
 sealed class Attachment(val type: String)
 
-data class docAttachment(val documents: Documents) : Attachment ("documents")
+data class docAttachment(val documents: Documents) : Attachment("documents")
 
 
 data class Documents(
@@ -12,7 +12,7 @@ data class Documents(
     val ext: String = "pdf"
 )
 
-data class videoAttachment(val video: Video) : Attachment ("video")
+data class videoAttachment(val video: Video) : Attachment("video")
 
 data class Video(
     val id: Int = 2,
@@ -21,7 +21,7 @@ data class Video(
     val views: Int = 1
 )
 
-data class audioAttachment(val audio: Audio) : Attachment ("audio")
+data class audioAttachment(val audio: Audio) : Attachment("audio")
 
 data class Audio(
     val id: Int = 3,
@@ -30,7 +30,7 @@ data class Audio(
     val date: Int = 2000
 )
 
-data class linkAttachment(val link: Link) : Attachment ("link")
+data class linkAttachment(val link: Link) : Attachment("link")
 
 data class Link(
     val url: String = "www.LifeAfterAndroid.com",
@@ -39,7 +39,7 @@ data class Link(
     val caption: String = "Вася"
 )
 
-data class photoAttachment(val photo: Photo) : Attachment ("photo")
+data class photoAttachment(val photo: Photo) : Attachment("photo")
 
 data class Photo(
     val id: Int = 5,
@@ -47,3 +47,11 @@ data class Photo(
     val text: String = "Какой-то текс",
     val date: Int = 1996
 )
+
+fun isClass(attachment: Attachment) = when (attachment) {
+    is docAttachment -> println(attachment.documents)
+    is videoAttachment -> println(attachment.video)
+    is audioAttachment -> println(attachment.audio)
+    is linkAttachment -> println(attachment.link)
+    is photoAttachment -> println(attachment.photo)
+}

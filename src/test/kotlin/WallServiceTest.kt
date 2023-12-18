@@ -1,10 +1,9 @@
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import ru.netology.Documents
-import ru.netology.Post
-import ru.netology.WallService
-import ru.netology.docAttachment
+import ru.netology.PostNotFoundException
+import ru.netology.data.*
+import ru.netology.service.WallService
 
 class WallServiceTest {
 
@@ -97,5 +96,37 @@ class WallServiceTest {
 
         val isUpdated = WallService.update(updatedPost)
         assertEquals(false, isUpdated)
+    }
+
+    @Test(expected = PostNotFoundException::class)
+    fun shouldThrow() {
+        val post = Post(
+            1, 1, 2000, "Привет",
+            reposts = 0, views = 0,
+            postType = "Простой", canDelete = true,
+            canEdit = true, markedAsAds = false,
+            isFavorite = false, likes = Post.Likes(), attachment = docAttachment(Documents())
+        )
+        val userId = "Юзер1"
+        WallService.add(post)
+
+        val comment = Comment(fromId = userId, text = "Иван Федорович Рубентшейн")
+        WallService.createComment(3, comment)
+    }
+
+    @Test
+    fun shouldNotThrow() {
+        val post = Post(
+            1, 1, 2000, "Привет",
+            reposts = 0, views = 0,
+            postType = "Простой", canDelete = true,
+            canEdit = true, markedAsAds = false,
+            isFavorite = false, likes = Post.Likes(), attachment = docAttachment(Documents())
+        )
+        val userId = "Юзер1"
+        WallService.add(post)
+
+        val comment = Comment(fromId = userId, text = "Иван Федорович Рубентшейн")
+        WallService.createComment(1, comment)
     }
 }

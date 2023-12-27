@@ -1,7 +1,10 @@
 package ru.netology
 
 import ru.netology.data.*
-import ru.netology.reports.Report
+import ru.netology.notes.Note
+import ru.netology.notes.Parametrs.BoolExist
+import ru.netology.notes.Parametrs.Id
+import ru.netology.notes.Parametrs.Text
 import ru.netology.service.WallService
 
 
@@ -97,13 +100,24 @@ fun main(args: Array<String>) {
 //    WallService.createComment(2, comment1)
 //    println(comment1)
 
-    val comment2 = Comment(fromId = userId, text = "Иван Федорович Рубентшейн")
-    WallService.createComment(2, comment2)
-    println(post2)
-    println(comment2)
+//    val comment2 = Comment(fromId = userId, text = "Иван Федорович Рубентшейн")
+//    WallService.createComment(2, comment2)
+//    println(post2)
+//    println(comment2)
+//
+//    val report1 = Report(userId = userId, commentId = comment2.commentId, reason = Report.Reason(1))
+//    WallService.makeReport(userId, comment2.commentId, report1.reason.type)
+//    println(report1)
 
-    val report1 = Report(userId = userId, commentId = comment2.commentId, reason = Report.Reason(1))
-    WallService.makeReport(userId, comment2.commentId, report1.reason.type)
-    println(report1)
+    val note1 = Note(Text(""), Id(0), BoolExist(true))
+    note1.add(Text("A"))
+    println(note1.get())
+//    note1.add(Text("B"))
+//    println(note1)
+//    note1.edit(Id(0), listOf(Text("C")))
+//    note1.add(Text("Edit"))
+//    println(note1)
+//    note1.delete(Id(0))
+//    println(note1)
 
 }

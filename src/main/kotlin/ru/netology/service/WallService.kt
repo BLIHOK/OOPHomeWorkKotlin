@@ -4,6 +4,7 @@ import ru.netology.PostNotFoundException
 import ru.netology.ReportException
 import ru.netology.data.Comment
 import ru.netology.data.Post
+import ru.netology.notes.Note
 import ru.netology.reports.Report
 
 object WallService {
@@ -12,19 +13,13 @@ object WallService {
     private val comments = mutableListOf<Comment>()
     private var commentCount = 1
     private var report = mutableListOf<Report>()
+//    private val note = mutableListOf< Note<T,E> >()
 
     fun makeReport(userId: String, commentsId: Int, reason: Int): Report {
-        val userIdError = comments.find { it.fromId == userId }
-        val commentIdError = comments.find { it.commentId == commentsId }
-        val reasonError = Report.Reason(reason).reasonReport
-        when {
-            userIdError == null -> throw ReportException("Wrong user Id")
-            commentIdError == null -> throw ReportException("Wrong comment ID")
-            reasonError == null -> throw ReportException("Wrong reason")
-            else -> {
-                report.add(Report(userId, commentsId, Report.Reason(reason)))
-            }
-        }
+        val userIdError = comments.find { it.fromId == userId } ?: throw ReportException("Wrong user Id")
+        val commentIdError = comments.find { it.commentId == commentsId } ?: throw ReportException("Wrong comment ID")
+        val reasonError = Report.Reason(reason).reasonReport ?: throw ReportException("Wrong reason")
+        report.add(Report(userId, commentsId, Report.Reason(reason)))
         return report.last()
     }
 
